@@ -239,7 +239,7 @@ class DOMManager {
     //exact expense item index and deletes the row before the rows are 
     //read and updated to the list
     static editList(id) {
-        let thisList;
+        var thisList;
         $('#expense-table-edit').empty();
         document.getElementById("expense-table-edit").className = '';
         document.getElementById("expense-table-edit").classList.add(`id-${id}`);
@@ -291,6 +291,7 @@ class DOMManager {
     */
     static updateId(elementId) {
         document.getElementById(elementId).id = 'update-list';
+
     }
 
     //this is just for formatting, capitalizes first 
@@ -402,6 +403,22 @@ $('#exit-create').on('click', () => {
     document.getElementById('expense-cost').value = '';
     document.getElementById("frequency1").checked = true;
     document.getElementById("locale1").checked = true;
+})
+
+//resets edit form on close button press
+$('#close-edit').on('click', () => {
+    //$('#expense-table').empty();
+    document.getElementById('expense-name-edit').value = '';
+    document.getElementById('expense-cost-edit').value = '';
+    document.getElementById("frequency1-edit").checked = true;
+})
+
+//resets edit form on exit button press
+$('#exit-edit').on('click', () => {
+    //$('#expense-table').empty();
+    document.getElementById('expense-name-edit').value = '';
+    document.getElementById('expense-cost-edit').value = '';
+    document.getElementById("frequency1-edit").checked = true;
 })
 
 
