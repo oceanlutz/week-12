@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Budgeting! &#x1F49C</title>
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="custom.css">
+    <link rel="shortcut icon" href="/images/bag-heart-fill.svg" type="image/x-icon">
+</head>
+<body class="bg-body">
+    <div class="jumbotron shadow-lg bg-custom-header">
+        <h1 class="display-4 text-center">&#x2728 Expenditures List! &#x2728</h1>
+        <p class="lead text-center">A way to keep track of your budget. &#x1F308</p>
+        <hr class="my-4">
+        <p></p>
+        <div class="row justify-content-center">
+            <a class="btn col-auto btn-create btn-lg m-2" onclick="this.blur();" data-toggle="modal" data-target="#create-modal" href="#" role="button">+ Create New List</a>
+            <a class="btn col-auto btn-view btn-lg m-2" onclick="this.blur(); DOMManager.getAllLists();" href="#" role="button">View Lists</a>
+            <a class="btn col-auto btn-delete btn-lg m-2" onclick="this.blur();" href="#" role="button">Delete Current List</a>
+        </div>
+    </div>
+
+    <div class="card shadow-lg bg-card" id="card">
+        <h3 class="card-header text-center font-weight-light bg-custom">
+            Current Lists
+        </h1>
+        <div class="card-body row" id="list-display">
+            <div class="col text-center"><h5 class="font-weight-light">There's nothing here.</h5></div>
+        </div>
+    </div>
+
+    <!--modal for creating new list-->
+    <div class="modal fade" id="create-modal" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="createListModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header bg-custom">
+                <h5 class="modal-title" id="createListModal">New List</h5>
+                <button type="button" class="close" id="exit-create" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body bg-custom-header">
+                <form>
+                    <div class="row mb-4">
+                        <div class="col-7 mt-1">
+                            <input type="text" class="form-control" placeholder="Name" id="list-name">
+                        </div>
+                        <div class="col-5 mb-3">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="locale-radios" id="locale1" value="de-DE" checked>
+                                <label class="form-check-label" for="locale1">
+                                    German (de-DE)
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="locale-radios" id="locale2" value="en-US">
+                                <label class="form-check-label" for="locale2">
+                                    US (en-US)
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-7">
+                            <input type="text" class="form-control" id="expense-name" placeholder="Expense to Add">
+                        </div>
+                        <div class="col-5">
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="frequency" id="frequency1" value="weekly" checked>
+                                <label class="form-check-label" for="frequency1">
+                                    Weekly
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="frequency" id="frequency2" value="monthly">
+                                <label class="form-check-label" for="frequency2">
+                                    Monthly
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="frequency" id="frequency3" value="yearly">
+                                <label class="form-check-label" for="frequency3">
+                                    Yearly
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-auto">
+                            <input type="text" class="form-control" id="expense-cost" placeholder="Cost (number only)">
+                        </div>
+                        <div class="col-auto ml-auto mt-1 mr-3">
+                            <button type="button" class="btn btn-edit" id="add-expense">+ Add</button>
+                        </div>
+                    </div>
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Expense Name</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Frequency</th>
+                            <th scope="col">Del</th>
+                          </tr>
+                        </thead>
+                        <tbody id="expense-table">
+                        </tbody>
+                      </table>
+                </form>
+          </div>
+          <div class="modal-footer bg-card">
+            <button type="button" class="btn btn-delete" id="close-create" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-create" data-dismiss="modal" id="create-list">Create!</button>
+        </div>
+        </div>
+      </div>
+    </div>
+      
+    <!--this is the modal for editing currently existing lists on edit button press-->
+    <div class="modal fade" id="edit-modal" tabindex="-1" role="dialog" aria-labelledby="editListModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header bg-custom">
+                <h5 class="modal-title" id="editListModal">Edit List</h5>
+                <button type="button" class="close" id="close-edit" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body bg-custom-header">
+                <form>
+                    <div class="row">
+                    <div class="col-7">
+                        <input type="text" class="form-control" id="expense-name-edit" placeholder="Expense to Add">
+                    </div>
+                    <div class="col-5">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="frequency-edit" id="frequency1-edit" value="weekly" checked>
+                            <label class="form-check-label" for="frequency1">
+                                Weekly
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="frequency-edit" id="frequency2-edit" value="monthly">
+                            <label class="form-check-label" for="frequency2">
+                                Monthly
+                            </label>
+                        </div>
+                        <div class="form-check mb-2">
+                            <input class="form-check-input" type="radio" name="frequency-edit" id="frequency3-edit" value="yearly">
+                            <label class="form-check-label" for="frequency3">
+                                Yearly
+                            </label>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <input type="text" class="form-control" id="expense-cost-edit" placeholder="Cost (number only)">
+                    </div>
+                    <div class="col-auto ml-auto my-1 mr-3">
+                        <button type="button" class="btn btn-edit" onclick="addSingleItem();" id="add-expense-edit">+ Add</button>
+                    </div>
+                </div>
+                    <table class="table">
+                        <thead>
+                          <tr>
+                            <th scope="col">Expense Name</th>
+                            <th scope="col">Amount</th>
+                            <th scope="col">Frequency</th>
+                            <th scope="col">Del</th>
+                          </tr>
+                        </thead>
+                        <!--placeholder rows in tbody for example, tbody is wiped before editing-->
+                        <tbody id="expense-table-edit">
+                          <tr class="expense-item-edit">
+                            <td class="expense">Grocery Shopping</td>
+                            <td class="amount">100.32</td>
+                            <td class="frequency">Monthly</td>
+                            <td>
+                                <a class="col-auto btn btn-remove btn-md m-2" role="button">
+                                    Delete
+                                </a>
+                            </td>
+                          </tr>
+                          <tr class="expense-item-edit"> 
+                            <td class="expense">Coffee</td>
+                            <td class="amount">3.25</td>
+                            <td class="frequency">Weekly</td>
+                            <td>
+                                <a class="col-auto btn btn-remove btn-md m-2" role="button">
+                                    Delete
+                                </a>
+                            </td>
+                          </tr>
+                          <tr class="expense-item-edit">
+                            <td class="expense">Food</td>
+                            <td class="amount">8.24</td>
+                            <td class="frequency">Weekly</td>
+                            <td>
+                                <a class="col-auto btn btn-remove btn-md m-2" role="button">
+                                    Delete
+                                </a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </form>
+          </div>
+          <div class="modal-footer bg-card">
+            <button type="button" id="exit-edit" class="btn btn-delete" data-dismiss="modal">Exit</button>
+            <button type="button" class="btn btn-create btn" id="update-list" data-dismiss="modal" onclick="DOMManager.updateList(this.id);">Update!</button>
+            <!--button takes its own id attribute and sends it to function to update list-->
+            <!--the button id changes each time to an id reflecting the current list its editing before being changed back-->
+        </div>
+        </div>
+      </div>
+      </div>
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.bundle.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

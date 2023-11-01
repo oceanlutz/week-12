@@ -1,0 +1,135 @@
+/*
+    this css is pretty straightforward, just 
+    edits the looks of various buttons and elements
+    through classes
+*/
+
+
+
+/*  
+    ///////////////////////////
+    ----bootstrap overrides----
+    ///////////////////////////
+*/
+
+/*none*/
+
+
+/*
+    //////////////////////
+    ----custom classes----
+    //////////////////////
+*/
+
+.bg-custom {
+    background-color:#e1ffff;
+    color: #212828
+}
+
+.bg-custom-header {
+    background-color:#ebebff;
+    border-color: #5a6060;
+    color: #212828;
+}
+
+.bg-body {
+    background-color: #5a6060;
+}
+
+.bg-card {
+    background-color: #ffffe6;
+    border-color: #5a6060;
+    color: #212828;
+}
+
+.bg-card-inner {
+    background-color: #5a6060;
+    color: white;
+    border-color: #ebebff;
+}
+
+.bg-custom-list {
+    background-color: #e2efef;
+    color: #212828;
+}
+
+.btn-create {
+    border-color: #ebffff;
+    border: 1px solid transparent;
+    color: #212828;
+}
+
+.btn-create:active {
+    font-size: 1.3rem;
+    padding: 0.805rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.3rem;
+}
+
+.btn-create:hover {
+    background-color: #b4ffff;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+}
+
+.btn-delete {
+    border-color: #ebffff;
+    border: 1px solid transparent;
+    color: #212828;
+}
+
+.btn-delete:active {
+    font-size: 1.3rem;
+    padding: 0.796rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.3rem;
+}
+
+.btn-delete:hover {
+    background-color: #ffd2d2;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+}
+
+/*custom padding for when button no longer fits on row*/
+@media (min-width: 410px) {
+    .btn-delete:active {
+        font-size: 1.3rem;
+        padding: 0.796rem;
+        padding-top: 0.53rem;
+        padding-bottom: 0.4rem;
+    }
+}
+
+.btn-edit {
+    background-color: #ffffb4;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+}
+
+.btn-remove {
+    background-color: #ffd2d2;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+}
+
+.btn-view {
+    border-color: #ebffff;
+    border: 1px solid transparent;
+    color: #212828;
+}
+
+.btn-view:active {
+    font-size: 1.3rem;
+    padding: 0.89rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.3rem;
+    
+}
+
+.btn-view:hover {
+    background-color: #ffffb4;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+}
+
